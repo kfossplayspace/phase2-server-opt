@@ -44,7 +44,7 @@ export async function deleteById(id, postopCallback) {
         }
         await response.json();
         postopCallback();
-    } catch (error) {
+     } catch (error) {
         alert(error);
     }
 }

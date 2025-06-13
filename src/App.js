@@ -13,7 +13,7 @@ export function App(params) {
   const [customers, setCustomers] = useState([]);
   const [formObject, setFormObject] = useState(blankCustomer);
   let mode = (formObject.id >= 0) ? 'Update' : 'Add';
-  useEffect(() => { getCustomers() }, []);
+  useEffect(() => { getCustomers() }, [formObject]);
   
   const getCustomers =  function(){
     log("in getCustomers()");
