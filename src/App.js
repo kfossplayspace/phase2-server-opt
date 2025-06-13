@@ -16,14 +16,14 @@ export function App(params) {
   useEffect(() => { getCustomers() }, [formObject]);
   
   const getCustomers =  function(){
-    log("in getCustomers()");
+     
     getAll(setCustomers);
   }
 
 
 
   const handleListClick = function(item){
-    log("in handleListClick()");
+     
       if(formObject.id !== item.id){
         setFormObject(item);
       }
@@ -35,7 +35,7 @@ export function App(params) {
     
 
   const handleInputChange = function (event) {
-    log("in handleInputChange()");
+     
     const name = event.target.name;
     const value = event.target.value;
     let newFormObject = {...formObject}
@@ -44,7 +44,7 @@ export function App(params) {
   }
 
   let onCancelClick = function () {
-    log("in onCancelClick()");
+     
     setFormObject(blankCustomer);
   }
 
