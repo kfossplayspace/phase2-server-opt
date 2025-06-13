@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 export function CustomerAddUpdateForm({
   formObject,
   handleInputChange,
@@ -5,6 +7,40 @@ export function CustomerAddUpdateForm({
   onSaveClick,
   onCancelClick,
   mode, }) {
+    
+  const [emailError, setEmailError] = useState('');
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const handleEmailChange = (e) => {
+    const email = e.target.value;
+    handleInputChange(e); // call parent input handler
+
+    if (!emailRegex.test(email)) {
+      setEmailError('Please enter a valid email address.');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handleSaveClick = () => {
+
+     if (!formObject.name.trim()) {
+       alert('name is required.');
+    return;
+     }
+      if (!formObject.password.trim()) {
+       alert('password is required.');
+    return;
+      }
+    if (!emailRegex.test(formObject.email)) {
+      setEmailError('Please enter a valid email address.');
+      return; // prevent save if invalid email
+   
+    }
+    setEmailError('');
+    onSaveClick();
+  };
      return (
       <div className="boxed">
       <div>
@@ -28,9 +64,14 @@ export function CustomerAddUpdateForm({
               <td><input
                 type="email"
                 name="email"
-                onChange={handleInputChange}
+                onChange={handleEmailChange}
                 value={formObject.email}
-                placeholder="name@company.com" /></td>
+                placeholder="name@company.com" />
+      
+                {emailError && (
+                  <div style={{ color: 'red', marginTop: '4px' }}>{emailError}</div>
+                )}
+                </td>
             </tr>
             <tr>
               <td className={'label'} >Pass:</td>
@@ -44,7 +85,7 @@ export function CustomerAddUpdateForm({
             <tr className="button-bar">
               <td colSpan="2">
                 <input type="button" value="Delete" onClick={onDeleteClick} />
-                <input type="button" value="Save" onClick={onSaveClick} />
+                <input type="button" value="Save" onClick={handleSaveClick} />
                 <input type="button" value="Cancel" onClick={onCancelClick} />
               </td>
             </tr>
